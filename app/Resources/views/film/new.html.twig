@@ -1,0 +1,27 @@
+{% extends 'dashbord.html.twig' %}
+
+{% block body %}
+    <div class="col-md-8 ml-auto mr-auto">
+        {{ form_start(form) }}
+        <h1>Ajouter un film</h1>
+
+        <div class="card ">
+        <div class="card-body ">
+            <form method="#" action="#">
+
+                <div class="form-group">
+                    {{ form_widget(form) }}
+
+                </div>
+
+            </form>
+        </div>
+        <div class="card-footer ">
+            <button type="submit" class="btn btn-info btn-round">Submit</button>
+        </div>
+        {{ form_end(form) }}
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,118 @@
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <div class="card card-user">
+                <div class="image">
+                    <img src="../../assets/img/bg/damir-bosnjak.jpg" alt="...">
+                </div>
+                {% if app.user.roles[0] == 'ROLE_ORGANISATEUR' %}
+                <div class="card-body">
+                    <div class="author" style="color: black">
+                        <a href="/profile">
+                            <img class="avatar border-gray" src="../../assets/img/mike.jpg" alt="...">
+                            <h5 class="title">{{ user.username }}</h5>
+                        </a>
+                        <p class="description" style="color: black;">
+                            {{ user.email }}
+                        </p>
+                    </div>
+                    <p class="description text-center" style="color: black;">
+                        {{ user.address }}
+
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <hr>
+                    <div class="button-container">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-6 col-6 ml-auto">
+                                <h5>
+                                    {{ user.nomcinema }}
+                                </h5>
+                            </div>
+                            <div class="col-lg-3 mr-auto">
+                                <h5>
+                                    {{ user.mobile }}
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if app.user.roles[0] == 'ROLE_USER' %}
+                    <div class="card-body">
+                        <div class="author" style="color: black">
+                            <a href="/profile">
+                                <img class="avatar border-gray" src="../../assets/img/mike.jpg" alt="...">
+                                <h5 class="title">{{ user.username }}</h5>
+                            </a>
+                            <p class="description" style="color: black;">
+                                {{ user.email }}
+                            </p>
+                        </div>
+                        <p class="description text-center" style="color: black;">
+                            {{ user.address }}
+
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <hr>
+                        <div class="button-container">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6 col-6 ml-auto">
+                                    <h5>
+                                        {{ user.firstname }}
+                                    </h5>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
+                                    <h5>
+                                        {{ user.lastname }}
+                                    </h5>
+                                </div>
+                                <div class="col-lg-3 mr-auto">
+                                    <h5>
+                                        {{ user.age }}
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <hr>
+                        <div class="button-container">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-6 col-6 ml-auto">
+                                    <h5>
+                                        {{ user.nivetud }}
+                                    </h5>
+                                </div>
+                                <div class="col-lg-3 mr-auto">
+                                    <h5>
+                                        {{ user.mobile }}
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if app.user.roles[0] == 'ROLE_ADMIN' %}
+                    <div class="card-body">
+                        <div class="author" style="color: black">
+                            <a href="/profile">
+                                <img class="avatar border-gray" src="../../assets/img/mike.jpg" alt="...">
+                                <h5 class="title">{{ user.username }}</h5>
+                            </a>
+                            <p class="description" style="color: black;">
+                                {{ user.email }}
+                            </p>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+
+<div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+        <div class="card card-signup text-center">
+            <div class="card-header ">
+                <h4 class="card-title">Modifier le profil</h4>
+            </div>
+
+            <div class="card-body ">
+                {%   if app.user.roles[0] == 'ROLE_ADMIN' %}
+                    {{ form_label(form.username) }}
+                    {{ form_widget(form.username) }}
+                    <br>
+                    {{ form_widget(form.email) }}
+                    <br>
+                    {{ form_widget(form.current_password) }}
+                    <br>
+                {% endif %}
+                {% if app.user.roles[0] == 'ROLE_ORGANISATEUR' %}
+                    {{ form_label(form.username) }}
+                    {{ form_widget(form.username) }}
+                    <br>
+                    {{ form_widget(form.nomcinema) }}
+                    <br>
+                    {{ form_widget(form.email) }}
+                    <br>
+                    {{ form_widget(form.mobile) }}
+                    <br>
+                    {{ form_widget(form.address) }}
+                    <br>
+                    {{ form_widget(form.current_password) }}
+                    <br>
+                {% endif %}
+                {% if app.user.roles[0] == 'ROLE_USER' %}
+                    {{ form_label(form.username) }}
+                    {{ form_widget(form.username) }}
+                    <br>
+                    {{ form_widget(form.firstname) }}
+                    <br>
+                    {{ form_widget(form.lastname) }}
+                    <br>
+                    {{ form_widget(form.age) }}
+                    <br>
+                    {{ form_widget(form.email) }}
+                    <br>
+                    {{ form_widget(form.mobile) }}
+                    <br>
+                    {{ form_widget(form.address) }}
+                    <br>
+                    {{ form_widget(form.niv_etud) }}
+                    <br>
+                    {{ form_widget(form.current_password) }}
+                    <br>
+                {% endif %}
+                <div class="card-footer ">
+                    <input type="submit" class="btn btn-info btn-round" value="{{ 'profile.edit.submit'|trans }}" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    {{ form_end(form) }}

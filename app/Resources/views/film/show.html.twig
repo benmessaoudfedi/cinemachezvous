@@ -1,0 +1,102 @@
+{% extends 'dashbord.html.twig' %}
+
+{% block body %}
+    <h1>Film</h1>
+    <div class="content">
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+                <div class="card card-user">
+                    <div class="image">
+                        <img src="{{ asset('assets1/img/bg/damir-bosnjak.jpg') }}" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <div class="author" style="color: black">
+                            <a href="/profile">
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <h5 class="title">{{ film.nom }}</h5>
+                            </a>
+                            <p class="description" style="color: black;">
+                            </p>
+                        </div>
+                        <p class="description text-center" style="color: black;">
+                            {{ film.resumer }}
+
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <hr>
+                        <div class="button-container">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6 col-6 ml-auto">
+                                    <h5>
+                                        {% if film.duree %}{{ film.duree|date('H:i:s') }}{% endif %}
+                                    </h5>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
+                                    <h5>
+                                        {% if film.heureDebut %}{{ film.heureDebut|date('Y-m-d H:i:s') }}{% endif %}
+                                    </h5>
+                                </div>
+                                <div class="col-lg-3 mr-auto">
+                                    <h5>
+                                        {{ film.prix }}
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <hr>
+                        <div class="button-container">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-6 col-6 ml-auto">
+                                    <h5>
+                                        {{ film.nombreSpect }}
+                                    </h5>
+                                </div>
+                                <div class="col-lg-3 mr-auto">
+                                    <h5>
+                                        {{ film.prix }}
+                                    </h5>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer ">
+                        <div>
+                            {% if app.user.roles[0] == 'ROLE_ADMIN' %}
+                                <a class="btn btn-simple btn-round " href="{{ path('admin_film_edit', { 'id': film.id }) }}">Edit</a>
+                            {% endif %}
+                            {% if app.user.roles[0] == 'ROLE_ORGANISATEUR' %}
+                                <a class="btn btn-simple btn-round " href="{{ path('organisateur_film_edit', { 'id': film.id }) }}">Edit</a>
+                            {% endif %}
+                            {% if app.user.roles[0] == 'ROLE_ADMIN' %}
+                                <a class="btn btn-simple btn-round "  href="{{ path('admin_film_index') }}">Back to the list</a>
+                            {% endif %}
+                            {% if app.user.roles[0] == 'ROLE_ORGANISATEUR' %}
+                                <a class="btn btn-simple btn-round "  href="{{ path('organisateur_film_index') }}">Back to the list</a>
+                            {% endif %}
+                        </div>
+                        <br>
+                        {{ form_start(delete_form) }}
+                        <input type="submit" class="btn btn-danger btn-round " value="Supprimer ce film">
+                        {{ form_end(delete_form) }}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

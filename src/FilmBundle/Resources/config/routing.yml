@@ -1,0 +1,15 @@
+film_organisateur_film:
+    resource: "@FilmBundle/Resources/config/routing/film.yml"
+    prefix:   /organisateur/film
+
+film_homepage:
+    path:     /
+    defaults: { _controller: FilmBundle:Default:index }
+
+film_path:
+    resource: "@FilmBundle/Resources/config/routing/film.yml"
+    prefix: /organisteur/film
+
+filmad_path:
+    resource: "@FilmBundle/Resources/config/routing/filmadmin.yml"
+    prefix: /admin/film

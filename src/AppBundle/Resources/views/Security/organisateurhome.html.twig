@@ -1,0 +1,16 @@
+{% extends "::dashbord.html.twig" %}
+
+{% block title %}AppBundle:Security:add{% endblock %}
+
+{% block body %}
+    <h1>Welcome to the organisateur home</h1>
+    {%   if app.user.roles[0] == 'ROLE_ADMIN' %}
+        <p>Our website is in maintenance mode. Please, come back later.</p>
+    {% endif %}
+    {%   if app.user.roles[0] == 'ROLE_USER' %}
+        <p>Our website is in maintenance mode. Please, come back later.</p>
+    {% endif %}
+    {%   if app.user.roles[0] == 'ROLE_ORGANISATEUR' %}
+        <p>Our website is in maintenance mode. Please, come back later.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,33 @@
+
+{% extends 'dashbord.html.twig' %}
+
+{% block body %}
+    <div class="col-md-8 ml-auto mr-auto">
+        {{ form_start(edit_form) }}
+        <h1>Modifier le film</h1>
+
+        <div class="card ">
+            <div class="card-body ">
+                <form method="#" action="#">
+
+                    <div class="form-group">
+                        {{ form_widget(edit_form) }}
+
+                    </div>
+
+                </form>
+            </div>
+            <div class="card-footer ">
+                <div>                <button type="submit" class="btn btn-info btn-round">Submit</button>
+                </div>
+                <br>
+                {{ form_start(delete_form) }}
+                <input type="submit" class="btn btn-danger btn-round " value="Supprimer ce film">
+                {{ form_end(delete_form) }}
+            </div>
+            {{ form_end(edit_form) }}
+
+        </div>
+    </div>
+
+{% endblock %}

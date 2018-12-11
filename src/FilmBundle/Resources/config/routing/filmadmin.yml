@@ -1,0 +1,23 @@
+admin_film_index:
+  path:     /
+  defaults: { _controller: "FilmBundle:Film:index" }
+  methods:  GET
+
+admin_film_show:
+  path:     /{id}/show
+  defaults: { _controller: "FilmBundle:Film:show" }
+  methods:  GET
+
+admin_film_new:
+  path:     /new
+  defaults: { _controller: "FilmBundle:Film:new" }
+  methods:  [GET, POST]
+admin_film_edit:
+  path:     /{id}/edit
+  defaults: { _controller: "FilmBundle:Film:edit" }
+  methods:  [GET, POST]
+
+admin_film_delete:
+  path:     /{id}/delete
+  defaults: { _controller: "FilmBundle:Film:delete" }
+  methods:  DELETE

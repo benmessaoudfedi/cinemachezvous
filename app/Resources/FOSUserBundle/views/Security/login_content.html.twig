@@ -1,0 +1,63 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+
+
+<form action="{{ path("fos_user_security_check") }}" method="post">
+    {% if csrf_token %}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    {% endif %}
+    <div class="card card-login">
+        <div class="card-header ">
+            <div class="card-header ">
+                <h3 class="header text-center">Login</h3>
+            </div>
+            <div>{% if error %}
+                    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+                {% if app.request.hasPreviousSession %}
+                    {% for type, messages in app.session.flashbag.all() %}
+                        {% for message in messages %}
+                            <div class="flash-{{ type }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="card-body">
+        </div>
+
+
+            <div class="input-group">
+                <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="nc-icon nc-single-02"></i>
+                      </span>
+                </div>
+
+                <input type="text" class="form-control" placeholder="{{ 'security.login.username'|trans }}" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username" />
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="nc-icon nc-key-25"></i>
+                      </span>
+                </div>
+                <input type="password" class="form-control" placeholder="{{ 'security.login.password'|trans }}" id="password" name="_password" required="required" autocomplete="current-password" />
+            </div>
+            <br/>
+            <div class="form-group">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" id="remember_me" name="_remember_me" value="on" />
+                        <span class="form-check-sign"></span>
+                        {{ 'security.login.remember_me'|trans }}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer ">
+            <input type="submit" class="btn btn-warning btn-round btn-block mb-3" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+        </div>
+    </div>
+</form>

@@ -1,0 +1,203 @@
+{% extends 'dashbord.html.twig' %}
+{% block stylesheets %}
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href={{ asset('assets1/css/icons.min.css') }} rel="stylesheet">
+    <!-- CSS Files -->
+
+{% endblock %}
+{% block body %}
+    <h1>Organisateurs list</h1>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <div class="toolbar">
+                    <!--        Here you can write extra buttons/actions for the toolbar              -->
+                </div>
+                <table id="datatable1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                    <tr>
+                        <th>Id</th>
+                        <th>Mobile</th>
+                        <th>Address</th>
+                        <th>Nomcinema</th>
+                        <th class="disabled-sorting text-right">Actions</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Id</th>
+                        <th>Mobile</th>
+                        <th>Address</th>
+                        <th>Nomcinema</th>
+                        <th class="disabled-sorting text-right">Actions</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for orga in organisateurs %}
+                        <tr>
+                            <td><a href="{{ path('admin_user_show', { 'id': orga.id }) }}">{{ orga.id }}</a></td>
+                            <td>{{ orga.mobile }}</td>
+                            <td>{{ orga.address }}</td>
+                            <td>{{ orga.nomcinema }}</td>
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href="{{ path('admin_user_show', { 'id': orga.id }) }}">show</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- end content-->
+        </div>
+        <!--  end card  -->
+    </div>
+    <h1>Simple Users list</h1>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <div class="toolbar">
+                    <!--        Here you can write extra buttons/actions for the toolbar              -->
+                </div>
+                <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                    <tr>
+                        <th>Id</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Mobile</th>
+                        <th>Age</th>
+                        <th>Niv_etud</th>
+                        <th>Address</th>
+                        <th class="disabled-sorting text-right">Actions</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Id</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Mobile</th>
+                        <th>Age</th>
+                        <th>Niv_etud</th>
+                        <th>Address</th>
+                        <th class="disabled-sorting text-right">Actions</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td><a href="{{ path('admin_user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
+                            <td>{{ user.firstname }}</td>
+                            <td>{{ user.lastname }}</td>
+                            <td>{{ user.mobile }}</td>
+                            <td>{{ user.age }}</td>
+                            <td>{{ user.nivetud }}</td>
+                            <td>{{ user.address }}</td>
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href="{{ path('admin_user_show', { 'id': user.id }) }}">show</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- end content-->
+        </div>
+        <!--  end card  -->
+    </div>
+    {% block javascripts %}
+        <script>
+            $(document).ready(function() {
+                $('#datatable').DataTable({
+                    "pagingType": "full_numbers",
+                    "lengthMenu": [
+                        [5,10, 25, 50, -1],
+                        [5,10, 25, 50, "All"]
+                    ],
+                    responsive: true,
+                    language: {
+                        search: "_INPUT_",
+                        searchPlaceholder: "Search records",
+                    }
+
+                });
+
+                var table = $('#datatable').DataTable();
+
+                // Edit record
+                table.on('click', '.edit', function() {
+                    $tr = $(this).closest('tr');
+
+                    var data = table.row($tr).data();
+                    alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+                });
+
+                // Delete a record
+                table.on('click', '.remove', function(e) {
+                    $tr = $(this).closest('tr');
+                    table.row($tr).remove().draw();
+                    e.preventDefault();
+                });
+
+                //Like record
+                table.on('click', '.like', function() {
+                    alert('You clicked on Like button');
+                });
+            });
+        </script>
+        <script>
+            $(document).ready(function() {
+                $('#datatable1').DataTable({
+                    "pagingType": "full_numbers",
+                    "lengthMenu": [
+                        [5,10, 25, 50, -1],
+                        [5,10, 25, 50, "All"]
+                    ],
+                    responsive: true,
+                    language: {
+                        search: "_INPUT_",
+                        searchPlaceholder: "Search records",
+                    }
+
+                });
+
+                var table = $('#datatable1').DataTable();
+
+                // Edit record
+                table.on('click', '.edit', function() {
+                    $tr = $(this).closest('tr');
+
+                    var data = table.row($tr).data();
+                    alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+                });
+
+                // Delete a record
+                table.on('click', '.remove', function(e) {
+                    $tr = $(this).closest('tr');
+                    table.row($tr).remove().draw();
+                    e.preventDefault();
+                });
+
+                //Like record
+                table.on('click', '.like', function() {
+                    alert('You clicked on Like button');
+                });
+            });
+        </script>
+    {% endblock %}
+{% endblock %}

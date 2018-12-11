@@ -1,0 +1,131 @@
+{% extends 'dashbord.html.twig' %}
+{% block stylesheets %}
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href={{ asset('assets1/css/icons.min.css') }} rel="stylesheet">
+    <!-- CSS Files -->
+
+{% endblock %}
+{% block body %}
+    <h1>Films list</h1>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <div class="toolbar">
+                    <!--        Here you can write extra buttons/actions for the toolbar              -->
+                </div>
+                <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Resumer</th>
+                        <th>Nombrespect</th>
+                        <th>Duree</th>
+                        <th>Heuredebut</th>
+                        <th>Prix</th>
+                        <th class="disabled-sorting text-right">Actions</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Resumer</th>
+                        <th>Nombrespect</th>
+                        <th>Duree</th>
+                        <th>Heuredebut</th>
+                        <th>Prix</th>
+                        <th class="disabled-sorting text-right">Actions</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for film in films %}
+                        <tr>
+                            {% if app.user.roles[0] == 'ROLE_ADMIN' %}
+                                <td><a href="{{ path('admin_film_show', { 'id': film.id }) }}">{{ film.id }}</a></td>
+                            {% endif %}
+                            {% if app.user.roles[0] == 'ROLE_ORGANISATEUR' %}
+                                <td><a href="{{ path('organisateur_film_show', { 'id': film.id }) }}">{{ film.id }}</a></td>
+                            {% endif %}
+                            <td>{{ film.nom }}</td>
+                            <td>{{ film.resumer }}</td>
+                            <td>{{ film.nombreSpect }}</td>
+                            <td>{% if film.duree %}{{ film.duree|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            <td>{% if film.heureDebut %}{{ film.heureDebut|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            <td>{{ film.prix }}</td>
+                            <td>
+                                <ul>
+                                    <li>
+                                        {% if app.user.roles[0] == 'ROLE_ADMIN' %}
+                                            <a href="{{ path('admin_film_show', { 'id': film.id }) }}">show</a>
+                                        {% endif %}
+                                        {% if app.user.roles[0] == 'ROLE_ORGANISATEUR' %}
+                                            <a href="{{ path('organisateur_film_show', { 'id': film.id }) }}">show</a>
+                                        {% endif %}
+                                    </li>
+                                    <li>
+                                        {% if app.user.roles[0] == 'ROLE_ADMIN' %}
+                                            <a href="{{ path('admin_film_edit', { 'id': film.id }) }}">edit</a>
+                                        {% endif %}
+                                        {% if app.user.roles[0] == 'ROLE_ORGANISATEUR' %}
+                                            <a href="{{ path('organisateur_film_edit', { 'id': film.id }) }}">edit</a>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- end content-->
+        </div>
+        <!--  end card  -->
+    </div>
+    {% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $('#datatable').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "All"]
+                ],
+                responsive: true,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search records",
+                }
+
+            });
+
+            var table = $('#datatable').DataTable();
+
+            // Edit record
+            table.on('click', '.edit', function() {
+                $tr = $(this).closest('tr');
+
+                var data = table.row($tr).data();
+                alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+            });
+
+            // Delete a record
+            table.on('click', '.remove', function(e) {
+                $tr = $(this).closest('tr');
+                table.row($tr).remove().draw();
+                e.preventDefault();
+            });
+
+            //Like record
+            table.on('click', '.like', function() {
+                alert('You clicked on Like button');
+            });
+        });
+    </script>
+
+    {% endblock %}
+{% endblock %}
