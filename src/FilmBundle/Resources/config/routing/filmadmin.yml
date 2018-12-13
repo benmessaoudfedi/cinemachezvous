@@ -12,6 +12,7 @@ admin_film_new:
   path:     /new
   defaults: { _controller: "FilmBundle:Film:new" }
   methods:  [GET, POST]
+
 admin_film_edit:
   path:     /{id}/edit
   defaults: { _controller: "FilmBundle:Film:edit" }

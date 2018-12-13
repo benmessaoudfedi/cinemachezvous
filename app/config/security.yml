@@ -6,7 +6,7 @@ security:
     role_hierarchy:
         ROLE_USER: ROLE_USER
         ROLE_ORGANISATEUR: ROLE_ORGANISATEUR
-        ROLE_ADMIN:       [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_ADMIN:       ROLE_ADMIN
 
     providers:
         fos_userbundle:

@@ -51,6 +51,9 @@
                             {% if app.user.roles[0] == 'ROLE_ORGANISATEUR' %}
                                 <td><a href="{{ path('organisateur_film_show', { 'id': film.id }) }}">{{ film.id }}</a></td>
                             {% endif %}
+                            {% if app.user.roles[0] == 'ROLE_USER' %}
+                                <td>{{ film.id }}</a></td>
+                            {% endif %}
                             <td>{{ film.nom }}</td>
                             <td>{{ film.resumer }}</td>
                             <td>{{ film.nombreSpect }}</td>
@@ -66,6 +69,9 @@
                                         {% if app.user.roles[0] == 'ROLE_ORGANISATEUR' %}
                                             <a href="{{ path('organisateur_film_show', { 'id': film.id }) }}">show</a>
                                         {% endif %}
+                                        {% if app.user.roles[0] == 'ROLE_USER' %}
+                                            <a href="{{ path('user_film_show', { 'id': film.id }) }}">show</a>
+                                        {% endif %}
                                     </li>
                                     <li>
                                         {% if app.user.roles[0] == 'ROLE_ADMIN' %}
@@ -75,6 +81,7 @@
                                             <a href="{{ path('organisateur_film_edit', { 'id': film.id }) }}">edit</a>
                                         {% endif %}
                                     </li>
+
                                 </ul>
                             </td>
                         </tr>
@@ -92,8 +99,8 @@
             $('#datatable').DataTable({
                 "pagingType": "full_numbers",
                 "lengthMenu": [
-                    [10, 25, 50, -1],
-                    [10, 25, 50, "All"]
+                    [5,10, 25, 50, -1],
+                    [5,10, 25, 50, "All"]
                 ],
                 responsive: true,
                 language: {

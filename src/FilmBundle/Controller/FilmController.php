@@ -3,6 +3,7 @@
 namespace FilmBundle\Controller;
 
 use FilmBundle\Entity\Film;
+use FilmBundle\Entity\Reservation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\User;
@@ -36,14 +37,24 @@ class FilmController extends Controller
 
             $films = $em->getRepository('FilmBundle:Film')->findBy(
                 ['users' => $users_id]);
+            return $this->render('film/index.html.twig', array(
+                'films' => $films,
+            ));
+        }
+
+        if($userrole[0] == 'ROLE_USER'){
+            $em = $this->getDoctrine()->getManager();
+
+            $films = $em->getRepository('FilmBundle:Film')->findAll();
 
             return $this->render('film/index.html.twig', array(
                 'films' => $films,
             ));
         }
 
-
     }
+
+
 
     /**
      * Creates a new film entity.
@@ -86,12 +97,40 @@ class FilmController extends Controller
      */
     public function showAction(Film $film)
     {
+        $user = $this->getUser();
+        $user_id = $user->getId();
+        $userrole= $user->getRoles();
+        if($userrole[0] == 'ROLE_USER') {
+            $em = $this->getDoctrine()->getManager();
+            $reservation = $em->getRepository('FilmBundle:Reservation')->findOneBy(array('user' => $user_id, 'film' => $film->getId()));
+            $reservation1 = $em->getRepository('FilmBundle:Reservation')->findOneBy(array('user' => $user_id, 'film' => $film->getId()));
+
+
+            return $this->render('film/show.html.twig', array(
+                'film' => $film,
+                'reservation' => $reservation,
+                'reservation1' => $reservation1,
+            ));
+        }
 
         $deleteForm = $this->createDeleteForm($film);
         return $this->render('film/show.html.twig', array(
             'film' => $film,
             'delete_form' => $deleteForm->createView(),
         ));
+    }
+    public function addAction(Film $film)
+    {
+        $user = $this->getUser();
+        $reservation = new Reservation();
+        $reservation->setFilm($film);
+        $reservation->setUser($user);
+        $film->setNombreSpect($film->getNombreSpect() - 1);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($reservation,$film);
+        $em->flush();
+        return $this->redirectToRoute('user_film_index');
+
     }
 
     /**
