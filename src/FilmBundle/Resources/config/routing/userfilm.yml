@@ -12,7 +12,3 @@ user_reservation_new:
   path:     /{id}/new
   defaults: { _controller: "FilmBundle:Film:add" }
   methods:  [GET, POST]
-<<<<<<< HEAD
-
-=======
->>>>>>> dd531811ba888d9a9e91b6a383dec19c3c9f011a
