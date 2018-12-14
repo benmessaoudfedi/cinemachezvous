@@ -1,16 +1,42 @@
 {% extends "::dashbord.html.twig" %}
 
-{% block title %}AppBundle:Security:add{% endblock %}
+{% block title %}{% endblock %}
+{% block stylesheets %}
 
+{% endblock %}
 {% block body %}
-    <h1>Welcome to the admin page</h1>
-    {%   if app.user.roles[0] == 'ROLE_ADMIN' %}
-        <p>Our website is in maintenance mode. Please, come back later.</p>
-    {% endif %}
-    {%   if app.user.roles[0] == 'ROLE_USER' %}
-        <p>Our website is in maintenance mode. Please, come back later.</p>
-    {% endif %}
-    {%   if app.user.roles[0] == 'ROLE_ORGANISATEUR' %}
-        <p>Our website is in maintenance mode. Please, come back later.</p>
-    {% endif %}
+    <div class="row">
+        {% for film in films %}
+
+            <div class="col-md-4">
+                <div class="card card-product">
+                    <div class="card-header card-header-image" data-header-animation="true">
+                        <a href="{{ path('admin_film_show', {'id': film.id}) }}">
+                            <img class="img" src="{{ asset('assets1/img/card-2.jpg') }}">
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-actions text-center">
+                            <a href="{{ path('admin_film_show', {'id': film.id}) }}">
+                                <button type="button" class="btn btn-simple"  data-placement="bottom" title="View">
+                                    <i class="material-icons">Afficher</i>
+                                </button>
+                            </a>
+
+                        </div>
+                        <h4 class="card-title">
+                            <a href="#pablo">{{ film.nom }}</a>
+                        </h4>
+                        <div class="card-description">
+                            {{ film.nom }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+    {{ knp_pagination_render(films) }}
+
 {% endblock %}

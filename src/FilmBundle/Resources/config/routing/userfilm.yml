@@ -1,0 +1,15 @@
+user_film_index:
+  path:     /
+  defaults: { _controller: "FilmBundle:Film:index" }
+  methods:  GET
+
+user_film_show:
+  path:     /{id}/show
+  defaults: { _controller: "FilmBundle:Film:show" }
+  methods:  GET
+
+user_reservation_new:
+  path:     /{id}/new
+  defaults: { _controller: "FilmBundle:Film:add" }
+  methods:  [GET, POST]
+

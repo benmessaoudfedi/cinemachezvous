@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
                                     <h5>
-                                        {% if film.heureDebut %}{{ film.heureDebut|date('Y-m-d H:i:s') }}{% endif %}
+                                        {% if film.heureDebut %}{{ film.heureDebut|date('H:i:s') }}{% endif %}
                                     </h5>
                                 </div>
                                 <div class="col-lg-3 mr-auto">
@@ -87,9 +87,25 @@
                             {% endif %}
                         </div>
                         <br>
-                        {{ form_start(delete_form) }}
-                        <input type="submit" class="btn btn-danger btn-round " value="Supprimer ce film">
-                        {{ form_end(delete_form) }}
+                        {% if app.user.roles[0] == 'ROLE_ADMIN' %}
+                            {{ form_start(delete_form) }}
+                            <input type="submit" class="btn btn-danger btn-round " value="Supprimer ce film">
+                            {{ form_end(delete_form) }}
+                        {% endif %}
+                        {% if app.user.roles[0] == 'ROLE_ORGANISATEUR' %}
+                            {{ form_start(delete_form) }}
+                            <input type="submit" class="btn btn-danger btn-round " value="Supprimer ce film">
+                            {{ form_end(delete_form) }}
+                        {% endif %}
+                        {% if app.user.roles[0] == 'ROLE_USER' %}
+                            {% if film.nombreSpect== 0  %}
+                                <a class="btn btn-dark btn-round ">Complet</a>
+                            {% elseif  reservation is empty %}
+                                <a class="btn btn-success btn-round " href="{{ path('user_reservation_new', { 'id': film.id }) }}">S'inscrire à ce film</a>
+                            {% else  %}
+                                <a class="btn btn-dark btn-round ">Vous êtes déja inscrit</a>
+                            {% endif %}
+                        {% endif %}
                     </div>
 
                 </div>

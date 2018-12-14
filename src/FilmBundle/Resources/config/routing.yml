@@ -13,3 +13,7 @@ film_path:
 filmad_path:
     resource: "@FilmBundle/Resources/config/routing/filmadmin.yml"
     prefix: /admin/film
+
+filmuser_path:
+    resource: "@FilmBundle/Resources/config/routing/userfilm.yml"
+    prefix: /user/film
